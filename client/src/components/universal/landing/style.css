@@ -1,0 +1,10 @@
+.jumbo {
+	height: 90vh;
+	background-image: linear-gradient(
+          rgba(0, 0, 0, 0.7), 
+          rgba(0, 0, 0, 0.7)
+        ), url("../../../images/daylight.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+
+}
