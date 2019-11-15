@@ -8,3 +8,12 @@
 	background-size: cover;
 
 }
+
+#overflow {
+	overflow-y: scroll;
+}
+.background_black {
+	background-color: black;
+	color: white;
+	padding: 0px 20px;
+}

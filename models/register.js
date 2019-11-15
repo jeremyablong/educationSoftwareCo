@@ -31,4 +31,4 @@ const SignupSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = Signup = mongoose.model("students", SignupSchema);
+module.exports = Signup = mongoose.model("faculty", SignupSchema);

@@ -1,8 +1,15 @@
-import { AUTHENTICATED } from "./types.js";
+import { AUTHENTICATED, BIO } from "./types.js";
 
 export const authenticated = (item) => {
 	return {
 		type: "AUTHENTICATED",
+		payload: item
+	}
+}
+
+export const accountBio = (item) => {
+	return {
+		type: "BIO",
 		payload: item
 	}
 }

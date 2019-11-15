@@ -27,14 +27,37 @@ mongo.connect(config.get("mongoURI"), { useNewUrlParser: true }, { useUnifiedTop
 			gender, 
 			birthdate
 		});
+		
+		db.collection("faculties", (err, collection) => {
+			collection.findOne({
+				email: email
+			}).then((user) => {
+				if (user) {
+					console.log("User Already Exists.");
+					res.json({ message: "User Already Exists." })
+				} else {
+					console.log("User DOESN'T exist!")
+					newUser.save((err, data) => {
+						if (err) {
+							console.log("This is the error when saving user :", err);
+						} else {
+							res.json({ message: "User Successfully Added!" })
+							console.log("This is the correct saved data :", data);
+						}
+					})	
+				}
+			}).catch((err) => {
+				console.log(err);
+			}); 
+		});
 
-		newUser.save((err, data) => {
-			if (err) {
-				console.log("This is the error when saving user :", err);
-			} else {
-				console.log("This is the correct saved data :", data);
-			}
-		})	
+		// newUser.save((err, data) => {
+		// 	if (err) {
+		// 		console.log("This is the error when saving user :", err);
+		// 	} else {
+		// 		console.log("This is the correct saved data :", data);
+		// 	}
+		// })	
       });
 });
 

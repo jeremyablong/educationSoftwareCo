@@ -10,25 +10,16 @@ const mongo = require("mongodb");
 mongo.connect(config.get("mongoURI"),  { useNewUrlParser: true }, { useUnifiedTopology: true }, cors(), (err, db) => {
 	router.post("/", (req, res) => {
 
-		const { email, password } = req.body;
+		// const collection = db.collection("faculties");
 
 		db.collection("faculties", (err, collection) => {
-			collection.findOne({
+			collection.find({
 				email: req.body.email
-			}).then((user) => {
-				if (user) {
-					console.log(user);
-					if (user.email === email && user.passwordConfirm === password) {
-						console.log("There is a login MATCH.")
-						res.json({ message: "There is a MATCH", data: user });
-					} else {
-						res.json({ message: "NO match" });
-					}
-				} 
-			}).catch((err) => {
-				console.log(err);
-			}); 
-		});
+			}, { "code": true }).toArray((err, result) => {
+				console.log(result);
+				res.send(result)
+			});
+		});  
 	});
 });
 

@@ -14,6 +14,9 @@ import {
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { authenticated } from "../../../actions/index.js";
+import "../style.css";
+import { withRouter } from "react-router";
+import { compose } from "redux";
 
 class Navigation extends Component {
 constructor (props) {
@@ -39,19 +42,37 @@ constructor (props) {
             <Nav className="ml-auto" navbar>
             <NavItem>
                 <Link onClick={() => {
-                  this.props.authenticated(false)
+                  this.props.authenticated(false);
+                  this.props.history.push("/");
                 }} className="btn btn-danger">SIGN-OUT</Link>
               </NavItem>
-              <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+              <NavItem className="link">
+                <Link style={{ color: "black" }} to="/">Analysis</Link>
               </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+              <NavItem className="link">
+                <Link style={{ color: "black" }} to="/">Random</Link>
               </NavItem>
               
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Options
+                  Admissions/Enrollment
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    <Link style={{ color: "black" }} to="/enrollment/new/student">Register New Students</Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    Option 2
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                    Reset
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Students
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
@@ -68,7 +89,7 @@ constructor (props) {
               </UncontrolledDropdown>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Options
+                  Faculty
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
@@ -85,24 +106,7 @@ constructor (props) {
               </UncontrolledDropdown>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
+                  Academics
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
@@ -142,4 +146,5 @@ constructor (props) {
   }
 }
 
-export default connect(null, { authenticated })(Navigation);
+// export default withRouter(connect(null, { authenticated })(Navigation));
+export default compose(withRouter, connect(null, { authenticated }))(Navigation);

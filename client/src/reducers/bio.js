@@ -1,4 +1,4 @@
-import { AUTHENTICATED, LOGIN_WITH_CODE } from "../actions/types.js";
+import { BIO } from "../actions/types.js";
 
 const initialState = {
 	data: {}
@@ -6,12 +6,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case AUTHENTICATED: 
-			return {
-				...state,
-				data: action.payload
-			}
-		case LOGIN_WITH_CODE: 
+		case BIO: 
 			return {
 				...state,
 				data: action.payload

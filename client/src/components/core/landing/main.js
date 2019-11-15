@@ -13,21 +13,21 @@ constructor () {
 	renderContent = () => {
 		return (
 			<div id="notfound">
-				<div class="notfound-bg"></div>
-				<div class="notfound">
-					<div class="notfound-404">
+				<div className="notfound-bg"></div>
+				<div className="notfound">
+					<div className="notfound-404">
 						<h1>404</h1>
 					</div>
-					<h2>Oops! Page Not Found</h2>
-					<form class="notfound-search">
+					<h2>Oops! This page is restricted.</h2>
+					<form className="notfound-search">
 						<input type="text" placeholder="Search..." />
 						<button type="button">Search</button>
 					</form>
-					<div class="notfound-social">
-						<a><i class="fa fa-facebook"></i></a>
-						<a><i class="fa fa-twitter"></i></a>
-						<a><i class="fa fa-pinterest"></i></a>
-						<a><i class="fa fa-google-plus"></i></a>
+					<div className="notfound-social">
+						<a><i className="fa fa-facebook"></i></a>
+						<a><i className="fa fa-twitter"></i></a>
+						<a><i className="fa fa-pinterest"></i></a>
+						<a><i className="fa fa-google-plus"></i></a>
 					</div>
 					<Link to="/" className="btn btn-info">Back To Homepage</Link>
 				</div>

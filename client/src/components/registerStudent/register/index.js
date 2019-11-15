@@ -1,24 +1,25 @@
+import React, { Component } from 'react';
+import SideNavigation from "../../../components/navigation/home/index.js";
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import React, { Component } from 'react';
-import { Link, withRouter } from "react-router-dom";
-import Navigation from "./navbar.js";
-import Jumbo from "../../universal/landing/index.js";
+import Navigation from "../../../components/navigation/home/navbar.js";
+import RegisterHelper from "./registerHelper.js";
+import { Link } from "react-router-dom";
 
-class SideNavigation extends Component {
+class RegisterStudent extends Component {
 	render() {
 		return (
 			<div>
 				<Navigation />
-				<div>
 				<SideNav
 				    onSelect={(selected) => {
 				        console.log("selected :", selected)
 				        this.props.history.push("/" + selected);
-
-				    }} style={{ height: "150%" }}>
+				    }}
+				    style={{ height: "150%" }}
+				>
 				    <SideNav.Toggle />
-					    <SideNav.Nav  defaultSelected="homepage">
+					    <SideNav.Nav defaultSelected="homepage">
 					        <NavItem eventKey="homepage">
 					            <NavIcon>
 					                <i className="fa fa-fw fa-home" style={{ fontSize: '1.75em' }} />
@@ -101,11 +102,11 @@ class SideNavigation extends Component {
 					        </NavItem>
 
 				    </SideNav.Nav>
-				</SideNav>	
-				</div>
-				<Jumbo />		
+				</SideNav>
+				<h4 className="text-center" style={{ paddingTop: "20px" }}> <b>Quick Registration Students Section (You can add additional information in the <Link to="/manage/student/profile">manage student section</Link>) </b></h4>
+				<RegisterHelper />
 			</div>
 		);
 	}
 }
-export default withRouter(SideNavigation);
+export default RegisterStudent;

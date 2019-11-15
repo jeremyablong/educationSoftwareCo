@@ -17,9 +17,10 @@ app.use(bodyParser.json());
 
 app.use("/register", require("./routes/registration/register/index.js"));
 app.use("/login", require("./routes/auth/login/index.js"));
-
-
-
+app.use("/grant/referral/token", require("./routes/referrals/referFaculty/index.js"));
+app.use("/gather/referral/all", require("./routes/referrals/referFaculty/gatherReferrals.js"));
+app.use("/login/request/codes", require("./routes/auth/login/loginGetReferral.js"));
+app.use("/remove/access/token", require("./routes/auth/login/remove.js"));
 
 app.get('/*', cors(), function(_, res) {
   res.sendFile(__dirname, './client/build/index.html'), function(err) {
