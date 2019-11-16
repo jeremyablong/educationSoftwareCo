@@ -62,5 +62,3 @@ mongo.connect(config.get("mongoURI"), { useNewUrlParser: true }, { useUnifiedTop
 });
 
 module.exports = router;
-
-module.exports = router;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./style.css";
+import StudentListDash from "./studentsList.js";
 
 class MainDashboard extends Component {
 constructor () {
@@ -86,6 +87,7 @@ constructor () {
 						</div>
 					</div>
 				</div>
+				<StudentListDash />
 			</div>
 		);
 	}

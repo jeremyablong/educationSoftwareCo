@@ -10,26 +10,39 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  DropdownItem,
+  Button, 
+  Popover, 
+  PopoverHeader, 
+  PopoverBody } from 'reactstrap';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { authenticated } from "../../../actions/index.js";
 import "../style.css";
 import { withRouter } from "react-router";
 import { compose } from "redux";
+import 'react-chat-elements/dist/main.css'
+import { ChatItem } from 'react-chat-elements';
+
 
 class Navigation extends Component {
 constructor (props) {
   super(props);
 
   this.state = {
-    isOpen: false
+    isOpen: false,
+    popoverOpen: false
   }
 }
 
   toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
+    })
+  }
+  toggle = () => {
+    this.setState({
+      popoverOpen: !this.state.popoverOpen
     })
   }
   render () {
@@ -40,6 +53,43 @@ constructor (props) {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
+            <NavItem className="link">
+                <Link style={{ color: "black" }}><i style={{ marginRight: "20px", marginBottom: "5px" }} id="Popover1" class="far fa-comments fa-2x">
+                <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
+                  <PopoverHeader>View Your Messages</PopoverHeader>
+                  <PopoverBody>
+                  <ChatItem
+                    avatar={require("../../../images/apple.jpg")}
+                    alt={'Reactjs'}
+                    title={'Facebook'}
+                    subtitle={'What are you doing?'}
+                    date={new Date()}
+                    unread={0} />
+                    <ChatItem
+                    avatar={require("../../../images/daylight.jpg")}
+                    alt={'Reactjs'}
+                    title={'Instagram'}
+                    subtitle={"What're you getting into today?"}
+                    date={new Date()}
+                    unread={0} />
+                    <ChatItem
+                    avatar={require("../../../images/apple.jpg")}
+                    alt={'Reactjs'}
+                    title={'Welcome!'}
+                    subtitle={'Whats up homie!'}
+                    date={new Date()}
+                    unread={0} />
+                    <ChatItem
+                    avatar={require("../../../images/bridge.jpg")}
+                    alt={'Reactjs'}
+                    title={'Hello, John!'}
+                    subtitle={'Heyyyy!'}
+                    date={new Date()}
+                    unread={0} />
+                  </PopoverBody>
+                </Popover>
+                </i></Link>
+              </NavItem>
             <NavItem>
                 <Link onClick={() => {
                   this.props.authenticated(false);
@@ -138,6 +188,7 @@ constructor (props) {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
+              
             </Nav>
           </Collapse>
         </Navbar>

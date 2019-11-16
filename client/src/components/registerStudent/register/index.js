@@ -28,14 +28,14 @@ class RegisterStudent extends Component {
 					                Homepage
 					            </NavText>
 					        </NavItem>
-					        <NavItem eventKey="charts">
+					        <NavItem>
 					            <NavIcon>
-					                <i className="fa fa-fw fa-bar-chart" style={{ fontSize: '1.75em' }} />
+					                <i className="far fa-registered" style={{ fontSize: '1.75em' }} />
 					            </NavIcon>
 					            <NavText>
 					                Registration
 						            </NavText>
-						            <NavItem eventKey="register/student">
+						            <NavItem eventKey="enrollment/new/student">
 						                <NavText>
 						                    Register A Student
 						                </NavText>

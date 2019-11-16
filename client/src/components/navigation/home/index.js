@@ -16,7 +16,7 @@ class SideNavigation extends Component {
 				        console.log("selected :", selected)
 				        this.props.history.push("/" + selected);
 
-				    }} style={{ height: "150%" }}>
+				    }} style={{ height: "200%" }}>
 				    <SideNav.Toggle />
 					    <SideNav.Nav  defaultSelected="homepage">
 					        <NavItem eventKey="homepage">
@@ -27,14 +27,14 @@ class SideNavigation extends Component {
 					                Homepage
 					            </NavText>
 					        </NavItem>
-					        <NavItem eventKey="charts">
+					        <NavItem eventKey="enrollment">
 					            <NavIcon>
-					                <i className="fa fa-fw fa-bar-chart" style={{ fontSize: '1.75em' }} />
+					                <i className="far fa-registered" style={{ fontSize: '1.75em' }} />
 					            </NavIcon>
 					            <NavText>
 					                Registration
 						            </NavText>
-						            <NavItem eventKey="register/student">
+						            <NavItem eventKey="enrollment/new/student">
 						                <NavText>
 						                    Register A Student
 						                </NavText>

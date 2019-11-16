@@ -7,11 +7,15 @@ const path = require("path");
 
 mongoDB();
 
+app.use(bodyParser.json({
+	limit:'50mb'
+})); 
 
-app.use(bodyParser.urlencoded({ 
-	extended: false
+app.use(bodyParser.urlencoded({
+	extended:true, limit:'50mb', parameterLimit: 1000000
 }));
-app.use(bodyParser.json());
+
+// app.use(bodyParser.json());
 
 
 
@@ -21,6 +25,9 @@ app.use("/grant/referral/token", require("./routes/referrals/referFaculty/index.
 app.use("/gather/referral/all", require("./routes/referrals/referFaculty/gatherReferrals.js"));
 app.use("/login/request/codes", require("./routes/auth/login/loginGetReferral.js"));
 app.use("/remove/access/token", require("./routes/auth/login/remove.js"));
+app.use("/register/student", require("./routes/students/registerStudent/register.js"));
+app.use("/find/all/students", require("./routes/students/findAllStudents.js"));
+app.use("/upload/student/photo", require("./routes/multer.js"));
 
 app.get('/*', cors(), function(_, res) {
   res.sendFile(__dirname, './client/build/index.html'), function(err) {
@@ -29,7 +36,6 @@ app.get('/*', cors(), function(_, res) {
     };
   };
 });
-
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", '*');

@@ -1,0 +1,13 @@
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var photoSchema = new Schema({
+  path:  { 
+  	type: String 
+  },
+  caption: { 
+  	type: String 
+  }
+});
+
+module.exports = Photos = mongoose.model('Photos', photoSchema);
