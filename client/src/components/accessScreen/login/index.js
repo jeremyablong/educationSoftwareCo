@@ -177,7 +177,7 @@ constructor () {
 					</form>
 				</div>
 				<div className="card-footer">
-					<button onClick={() => {
+					<button style={{ marginBottom: "20px" }} onClick={() => {
 							this.setState({
 								showLogin: true
 							})
@@ -319,13 +319,13 @@ constructor () {
 				        />
 					</div>
 						<div className="form-group">
-							<button type="submit" value="Register Today" className="btn float-right login_btn" > Register Today</button>
+							<button style={{ width: "50%" }} type="submit" value="Register Today" className="btn float-right login_btn" > Register</button>
 						</div>
 
 					</form>
 				</div>
 				<div className="card-footer">
-					<button onClick={() => {
+					<button style={{ marginBottom: "20px" }} onClick={() => {
 							this.setState({
 								showLogin: false
 							})

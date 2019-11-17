@@ -47,17 +47,21 @@ constructor () {
   }
   renderFormSubmit = () =>{
     console.log("submiited.", this.state.code);
-    axios.post("/grant/referral/token", {
-      email: this.props.email,
-      code: this.state.code
-    }).then((res) => {
-      this.setState({
-        code: "You have successfully created a unique ID, You can send this to refer other teachers!"
+    if (this.state.code.length > 4) {
+      axios.post("/grant/referral/token", {
+        email: this.props.email,
+        code: this.state.code
+      }).then((res) => {
+        this.setState({
+          code: "You have successfully created a unique ID, You can send this to refer other teachers!"
+        })
+        console.log(res.data);
+      }).catch((err) => {
+        console.log(err);
       })
-      console.log(res.data);
-    }).catch((err) => {
-      console.log(err);
-    })
+    } else {
+      alert("Please enter a registration code greater than 4 charectors.")
+    }
   }
   renderReferralCodes = () => {
     axios.post("/gather/referral/all", {
