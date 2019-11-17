@@ -6,17 +6,59 @@ const mongo = require("mongodb");
 const config = require("config");
 const cors = require("cors"); 
 const saltRounds = 10;
+const Busboy = require('busboy');
+const multer = require("multer");
+const crypto = require('crypto');
+const path = require("path");
+const uuidv4 = require("uuid/v4")
+// const multer = require("multer");
+const GridFsStorage = require('multer-gridfs-storage');
+
+const DIR = './public/';
+
+const storage = new GridFsStorage({
+  url: config.get("mongoURI"),
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err)
+        }
+        const filename = file.originalname
+        const fileInfo = {
+          filename: filename,
+          bucketName: 'uploads',
+        }
+        resolve(fileInfo)
+      })
+    })
+  },
+})
+var upload = multer({
+    storage: storage,
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+            cb(null, true);
+        } else {
+            cb(null, false);
+            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+    }
+});
 
 
 mongo.connect(config.get("mongoURI"), { useNewUrlParser: true }, { useUnifiedTopology: true }, cors(), (err, db) => {
-	router.post("/", (req, res) => {
+	router.post("/", upload.single("image"), (req, res) => {
 		if (err) {
 			console.log(`This is the error : ${err}`);
 		}
+		console.log("Request ---", req.body);
+        console.log("Request file ---", req.file);
 		console.log(`This is the req.body : ${req.body}`);
 		const { fullName, email, address, city, state, schoolID, studentPhoneNumber, mothersName, fathersName, fathersPhoneNumber, mothersPhoneNumber, primaryContact, gender, race } = req.body;
 		
 		const newUser = new SignUpStudent({
+			file: req.file,
 			fullName,
 			email,
 			address,

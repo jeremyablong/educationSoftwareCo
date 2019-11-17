@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
 import "./style.css";
 import StudentListDash from "./studentsList.js";
+import axios from "axios";
 
 class MainDashboard extends Component {
 constructor () {
 	super();
 
-
+	this.state = {
+		data: []
+	}
 }
+	componentDidMount () {
+		axios.get("/find/all/students").then((res) => {
+			console.log("/find/all/students:", res.data);
+			this.setState({
+				data: res.data
+			})
+		}).catch((err) => {
+			console.log(err);
+		})
+	}
 	render() {
+		console.log("this.state.data :", this.state.data)
 		return (
 			<div>
 				<div className="container-fluid">
@@ -17,7 +31,7 @@ constructor () {
 							<div className="card" style={{ width: "100%" }}>
 							  <div className="card-body card-bod">
 							    <h5 className="card-title title">Registered Students</h5>
-							    <h3 className="card-text"><b>1,423</b></h3>
+							    <h3 className="card-text"><b>{this.state.data.length}</b></h3>
 							    {/*<a href="#" className="btn btn-primary">Go somewhere</a>*/}
 							  </div>
 							</div>

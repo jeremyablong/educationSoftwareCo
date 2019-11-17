@@ -5,7 +5,7 @@ import Landing from "./components/landing.js";
 import MainLanding from "./components/core/landing/main.js";
 import { connect } from "react-redux";
 import RegisterStudent from "./components/registerStudent/register/index.js";
-
+import MainStudentProfile from "./components/studentProfile/main.js";
 
 class App extends Component {
 constructor () {
@@ -20,6 +20,7 @@ constructor () {
           {this.props.auth === true ? <Route exact path="/" component={MainLanding} /> : <Route exact path="/" component={Landing} /> }
           <Route exact path="/homepage" component={MainLanding} />
           {this.props.auth === true ? <Route exact path="/enrollment/new/student" component={RegisterStudent} /> : null}
+          {this.props.auth === true ? <Route exact path="/view/student/profile" component={MainStudentProfile}/> : null}
         </div>
       </BrowserRouter>
     );

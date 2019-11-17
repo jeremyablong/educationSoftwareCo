@@ -1,13 +1,13 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-var photoSchema = new Schema({
-  path:  { 
-  	type: String 
-  },
-  caption: { 
-  	type: String 
-  }
-});
+const photoSchema = new Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    profileImg: {
+        type: String
+    }
+}, {
+    collection: 'students'
+})
 
-module.exports = Photos = mongoose.model('Photos', photoSchema);
+module.exports = User = mongoose.model('students', photoSchema)

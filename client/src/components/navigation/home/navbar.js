@@ -54,7 +54,7 @@ constructor (props) {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
             <NavItem className="link">
-                <Link style={{ color: "black" }}><i style={{ marginRight: "20px", marginBottom: "5px" }} id="Popover1" class="far fa-comments fa-2x">
+                <Link style={{ color: "black" }}><i style={{ marginRight: "20px", marginBottom: "5px" }} id="Popover1" className="far fa-comments fa-2x">
                 <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
                   <PopoverHeader>View Your Messages</PopoverHeader>
                   <PopoverBody>
