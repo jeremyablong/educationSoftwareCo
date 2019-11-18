@@ -49,12 +49,12 @@ constructor (props) {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarBrand href="/">Schooling4everyone</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
             <NavItem className="link">
-                <Link style={{ color: "black" }}><i style={{ marginRight: "20px", marginBottom: "5px" }} id="Popover1" className="far fa-comments fa-2x">
+                <a style={{ color: "black" }}><i style={{ marginRight: "20px", marginBottom: "5px" }} id="Popover1" className="far fa-comments fa-2x">
                 <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={this.toggle}>
                   <PopoverHeader>View Your Messages</PopoverHeader>
                   <PopoverBody>
@@ -88,7 +88,7 @@ constructor (props) {
                     unread={0} />
                   </PopoverBody>
                 </Popover>
-                </i></Link>
+                </i></a>
               </NavItem>
             <NavItem>
                 <Link onClick={() => {
@@ -96,12 +96,7 @@ constructor (props) {
                   this.props.history.push("/");
                 }} className="btn btn-danger">SIGN-OUT</Link>
               </NavItem>
-              <NavItem className="link">
-                <Link style={{ color: "black" }} to="/">Analysis</Link>
-              </NavItem>
-              <NavItem className="link">
-                <Link style={{ color: "black" }} to="/">Random</Link>
-              </NavItem>
+              
               
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -122,11 +117,11 @@ constructor (props) {
               </UncontrolledDropdown>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Students
+                  Teachers
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    Option 1
+                    <Link to="/class/dashboard"> Scheduling </Link>
                   </DropdownItem>
                   <DropdownItem>
                     Option 2

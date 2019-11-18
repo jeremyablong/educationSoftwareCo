@@ -67,3 +67,22 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+.list .list_item {
+  color: white;
+}
+.list_item b {
+  color: #03A9F4;
+}
+.student {
+  color: aquamarine;
+}
+.list_two {
+  background: black;
+  padding: 14px 40px;
+  border-radius: 25px;
+}
+.list {
+  background: black;
+  padding: 14px 40px;
+  border-radius: 25px;
+}

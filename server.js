@@ -28,6 +28,9 @@ app.use("/remove/access/token", require("./routes/auth/login/remove.js"));
 app.use("/register/student", require("./routes/students/registerStudent/register.js"));
 app.use("/find/all/students", require("./routes/students/findAllStudents.js"));
 app.use("/upload/student/photo", require("./routes/multer.js"));
+app.use("/post/student", require("./routes/agenda/newData/index.js"))
+app.use("/gather/agenda/home", require("./routes/agenda/gather/index.js"));
+
 
 app.get('/*', cors(), function(_, res) {
   res.sendFile(__dirname, './client/build/index.html'), function(err) {
