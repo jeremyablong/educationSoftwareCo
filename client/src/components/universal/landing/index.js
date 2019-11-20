@@ -95,15 +95,17 @@ constructor () {
           contentLabel="Example Modal"
         >
         <div className="background_black">
-        <h1 className="text-center">Here is a list of your generated referral codes!</h1>
+        <h1 className="text-center">Below are your generated referral codes!</h1>
         <ul id="overflow" className="list-group">
           {this.state.data.map((item, index) => {
-            return item.code.reverse().map((i, x) => {
-              console.log(i);
-              return (
-                <li className="list-group-item disabled"><b>Code:</b> {i}</li>
-              );
-            })
+            if (item.code) {
+              return item.code.reverse().map((i, x) => {
+                console.log(i);
+                return (
+                  <li className="list-group-item disabled"><b>Code:</b> {i}</li>
+                );
+              })
+            }
           })}
         </ul>
         <hr style={{ paddingBottom: "20px" }}/>

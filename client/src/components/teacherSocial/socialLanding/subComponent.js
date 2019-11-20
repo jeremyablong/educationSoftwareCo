@@ -5,6 +5,7 @@ import "./style.css";
 import axios from "axios";
 import { connect } from "react-redux";
 import { uuid } from "uuidv4";
+import BlogPost from "./blogPost.js";
 
 class SubComponent extends Component {
 constructor (props) {
@@ -15,7 +16,9 @@ constructor (props) {
     	title: "",
     	subTitle: "",
     	content: "",
-    	gatherTimelinePosts: []
+    	gatherTimelinePosts: [],
+    	image: null,
+    	message: ""
     };
 }
     onSetSidebarOpen = (open) => {
@@ -39,24 +42,36 @@ constructor (props) {
     	}, 500)
     }
     onSubmit = (e) => {
-    	e.preventDefault();
-		console.log("Clicked.");
-		axios.post("/post/newsfeed", {
-	      email: this.props.email,
-	      uuid: uuid(),
-	      title: this.state.title,
-	      subTitle: this.state.subTitle,
-	      content: this.state.content
-	    }).then((res) => {
-	      console.log(res.data);
+
+		e.preventDefault();
+
+		const formData = new FormData();
+
+        formData.append('email', this.props.email);
+        formData.append("uuid", uuid());
+        formData.append("title", this.state.title);
+        formData.append("subTitle", this.state.subTitle);
+        formData.append("content", this.state.content);
+        formData.append('image', this.state.image);
+        formData.append("name", this.props.fullName);
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+
+        axios.post("/blog/post/image", formData, config).then((res) => {
+	      console.log("File uploaded :", res.data);
 	    }).catch((err) => {
 	      console.log(err);
 	    })
 	    this.setState({
 	    	title: "",
 	    	subTitle: "",
-	    	content: ""
-	    })
+	    	content: "",
+	    	image: null
+	    });
     }
     renderConditional = () => {
     	for (let i in this.state.gatherTimelinePosts) {
@@ -67,6 +82,12 @@ constructor (props) {
 			}
     	}
     }
+    onDrop = (e) => {
+		this.setState({
+			image: e.target.files[0],
+			message: "You have successfully selected your photo"
+		})
+    }
 	render() {
 		console.log("this.props :", this.props.location.state);
 		// const { data } = this.props.location.state;
@@ -76,7 +97,7 @@ constructor (props) {
 			{this.props.email === this.props.location.state.data.email ? <div class="row">
 				<div class="col-md-12">
 				<div style={{ width: "100%" }} class="card gedf-card">
-				<form onSubmit={this.onSubmit}>
+				<form onSubmit={this.onSubmit} method="POST" action="/" encType="multipart/form-data">
                     <div class="card-header">
                     <h4 className="text-left text-white">Welcome to your timeline {this.props.fullName}</h4>
                         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
@@ -132,7 +153,18 @@ constructor (props) {
                                 </div>
                                 <div class="py-4"></div>
                             </div>*/}
+                            <div style={{ margin: "20px 0px" }} className="input-group">
+							  <div className="input-group-prepend">
+							    <span style={{ width: "100%" }} className="input-group-text" id="inputGroupFileAddon01">Upload</span>
+							  </div>
+							  <div className="custom-file">
+							    <input onChange={this.onDrop} name="image" type="file" className="custom-file-input" id="inputGroupFile01"
+							      aria-describedby="inputGroupFileAddon01" />
+							    <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
+							  </div>
+							</div>
                         </div>
+                        <h6 class="text-white">{this.state.message}</h6>
                         <div class="btn-toolbar justify-content-between">
                             <div class="btn-group">
                                 <button type="submit" class="btn btn-primary">share</button>
@@ -167,6 +199,7 @@ constructor (props) {
 			}
 		})}
 		{this.renderConditional()}
+		<BlogPost timeline={this.state.gatherTimelinePosts} />
 		</div>
 		);
 	}

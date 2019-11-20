@@ -4,3 +4,6 @@
 .navbar {
 	z-index: 10 !important;
 }
+html, body {
+	font-family: 'Tomorrow', sans-serif !important;
+}
