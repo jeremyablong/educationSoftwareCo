@@ -10,16 +10,19 @@ const mongo = require("mongodb");
 mongo.connect(config.get("mongoURI"),  { useNewUrlParser: true }, { useUnifiedTopology: true }, cors(), (err, db) => {
 	router.post("/", (req, res) => {
 
-		console.log("newData/index.js :", req.body);
+		console.log("timelineGather.js :", req.body);
 
 		const collection = db.collection("faculties");
 
-		collection.findOneAndUpdate({ email: req.body.email }, { $push: { "studentList": { id: req.body.id , title: req.body.title }}}), function(err, result) { 
-	        console.log(result);
-	        res.send(result);
-	    };  
+		db.collection("faculties", (err, collection) => {
+			collection.find({
+				email: req.body.email
+			}, { "newsfeed": true }).toArray((err, result) => {
+				console.log("RESULT :", result);
+				res.send(result)
+			});
+		});   
 	});
 });
 
 module.exports = router;
-

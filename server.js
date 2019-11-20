@@ -30,7 +30,10 @@ app.use("/find/all/students", require("./routes/students/findAllStudents.js"));
 app.use("/upload/student/photo", require("./routes/multer.js"));
 app.use("/post/student", require("./routes/agenda/newData/index.js"))
 app.use("/gather/agenda/home", require("./routes/agenda/gather/index.js"));
-
+app.use("/gather/teacher/data", require("./routes/teachers/teacherList/gatherTeachers.js"));
+app.use("/post/newsfeed", require("./routes/social/teacherProfile/social.js"));
+app.use("/gather/newsfeed/individual", require("./routes/social/teacherProfile/timelineGather.js"));
+app.use("/gather/photos/students", require("./routes/images/gatherImages.js"));
 
 app.get('/*', cors(), function(_, res) {
   res.sendFile(__dirname, './client/build/index.html'), function(err) {

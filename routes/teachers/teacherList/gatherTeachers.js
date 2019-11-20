@@ -11,10 +11,10 @@ const mongo = require("mongodb");
 mongo.connect(config.get("mongoURI"),  { useNewUrlParser: true }, { useUnifiedTopology: true }, cors(), (err, db) => {
 	router.get("/", (req, res) => {
 
-		const collection = db.collection("students");
+		const collection = db.collection("faculties");
 
 		collection.find({}).toArray((err, result) => {
-			// console.log(result);
+			console.log(result);
 			res.send(result);
 		})
 	});

@@ -63,7 +63,7 @@ constructor ()  {
 		        <div className="container">
 					<div className="row">
 						<div className="col-md-12 mx-auto">
-							{this.state.imagePath.length > 0 ? <img style={{ width: "100%", height: "100%", maxHeight: "350px", maxWidth: "350px" }} src={require(`../../public/uploads/${this.state.imagePath}`)} alt="big profile image"/> : null}
+							<img style={{ width: "100%", height: "100%", maxHeight: "350px", maxWidth: "350px" }} src={this.state.imagePath} alt="big profile image"/>
 						</div>
 					</div>
 		        </div>
@@ -113,14 +113,15 @@ constructor ()  {
 		                  id: "studentImage",
 		                  filterable: false,
 		                  accessor: d => {
+		                  	console.log("image name :", d.location)
 		                  	return <img onClick={() => {
 		                  		this.setState({
 		                  			modalIsOpen: true,
-		                  			imagePath: d.originalname
+		                  			imagePath: d.location
 		                  		}, () => {
 		                  			console.log("clicked", this.state.imagePath)
 		                  		})
-		                  	}} style={{ width: "30px", height: "30px" }} src={require(`../../public/uploads/${d.originalname}`)} alt="profile pic"/>
+		                  	}} style={{ width: "30px", height: "30px" }} src={d.location} alt="profile pic"/>
 		                  }
 		                },
 			          	 {

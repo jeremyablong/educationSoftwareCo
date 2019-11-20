@@ -11,35 +11,89 @@ const crypto = require('crypto');
 const path = require("path");
 const uuidv4 = require("uuid/v4");
 const SignUpStudent = require("../models/registerStudent/registerStudent.js");
-// const multer = require("multer");
+const Grid = require("gridfs-stream");
 const GridFsStorage = require('multer-gridfs-storage');
+Grid.mongo = mongoose.mongo;
+const Image = require("../models/photos.js");
+const fs = require('fs');
+const multerS3 = require('multer-s3');
+const aws = require('aws-sdk');
 
-var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, './client/src/public/uploads/');
-     },
-    filename: function (req, file, cb) {
-        cb(null , file.originalname);
+
+aws.config.update({
+    secretAccessKey: 'MNZyWkxpfL8ZJScSDr0/prKNnuOxpWAYPvKk0s2k',
+    accessKeyId: 'AKIAJ4DUVBXJGVN4VFPA',
+    region: 'us-east-1'
+});
+
+
+s3 = new aws.S3();
+// const gfs = Grid(config.get("mongoURI"), mongo);
+// const conn = mongoose.createConnection(config.get("mongoURI"), { useNewUrlParser: true });
+
+// var gfs = Grid(conn.db, mongoose.mongo);
+// console.log("conn.db :", conn.db) 
+
+// const storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         cb(null, './client/src/public/uploads/');
+//      },
+//     filename: function (req, file, cb) {
+//         cb(null , file.originalname);
+//     }
+// });
+
+var gfs = Grid("test");
+
+const storage = new GridFsStorage({
+  url: config.get("mongoURI"),
+  gfs: gfs,
+  file: (req, file) => {
+    return {
+        filename: file.originalname
     }
+  }
 });
 var upload = multer({
-    storage: storage,
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
-            cb(null, true);
-        } else {
-            cb(null, false);
-            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+    storage: multerS3({
+        s3: s3,
+        bucket: 'pictures-schooling-app',
+        key: function (req, file, cb) {
+            console.log(file);
+            cb(null, file.originalname); //use Date.now() for unique file keys
         }
-    }
+    })
 });
 
 
 mongo.connect(config.get("mongoURI"),  { useNewUrlParser: true }, { useUnifiedTopology: true }, cors(), (err, db) => {
   router.post("/", upload.single("image"), (req, res) => {
-    console.log("Request ---", req.body);
-    console.log("Request file ---", req.file);
-    const { fullName, email, address, city, state, schoolID, studentPhoneNumber, mothersName, fathersName, fathersPhoneNumber, mothersPhoneNumber, primaryContact, gender, race } = req.body;
+
+
+
+    var new_img = new Image;
+
+    console.log("req.file :", req.file)
+
+    // new_img.img.data = fs.readFileSync(req.file.path, "utf-8")
+    // new_img.img.contentType = req.file.contentType;
+    // new_img.save();
+    // res.json({ message: 'New image added to the db!' });
+
+
+    // new_img.save((err, data) => {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     console.log("data:", data);
+    //     res.json({ message: 'New image added to the db!' });
+    // })
+
+
+
+    // console.log("Request ---", req.body);
+    // console.log("Request file ---", req.file);
+    // const { fullName, email, address, city, state, schoolID, studentPhoneNumber, mothersName, fathersName, fathersPhoneNumber, mothersPhoneNumber, primaryContact, gender, race } = req.body;
     const newStudent = new SignUpStudent();
 
     newStudent.fullName = req.body.fullName;
@@ -68,7 +122,8 @@ mongo.connect(config.get("mongoURI"),  { useNewUrlParser: true }, { useUnifiedTo
     newStudent.size = req.file.size,
     newStudent.md5 = req.file.md5,
     newStudent.uploadDate = req.file.uploadDate,
-    newStudent.contentType = req.file.contentType
+    newStudent.contentType = req.file.contentType,
+    newStudent.location = req.file.location
   
     newStudent.save((err, doc) => {
       if (err) {
@@ -77,53 +132,6 @@ mongo.connect(config.get("mongoURI"),  { useNewUrlParser: true }, { useUnifiedTo
       console.log(doc);
       res.send(doc);
     });
-
-    // const newUser = new SignUpStudent({
-    //   file: req.file,
-    //   fullName,
-    //   email,
-    //   address,
-    //   city,
-    //   state,
-    //   schoolID,
-    //   studentPhoneNumber,
-    //   mothersName,
-    //   fathersName,
-    //   fathersPhoneNumber,
-    //   mothersPhoneNumber,
-    //   primaryContact,
-    //   gender,
-    //   race
-    // });
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // db.collection("students", (err, collection) => {
-    //   collection.findOne({
-    //     email: email
-    //   }).then((user) => {
-    //     if (user) {
-    //       console.log("User Already Exists.");
-    //       res.json({ message: "Student Already Exists." })
-    //     } else {
-    //       console.log("User DOESN'T exist!")
-    //       newUser.save((err, data) => {
-    //         if (err) {
-    //           console.log("This is the error when saving student :", err);
-    //         } else {
-    //           res.json({ message: "Student Successfully Added!" })
-    //           console.log("This is the correct saved data :", data);
-    //         }
-    //       })  
-    //     }
-    //   }).catch((err) => {
-    //     console.log(err);
-    //   }); 
-    // });
   });
 });
 

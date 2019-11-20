@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import Navigation from "../../navigation/home/navbar.js";
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import Navigation from "../../../components/navigation/home/navbar.js";
-import ClassDashSub from "./classDashSub.js";
-import StudentsAgenda from "./student.js";
+import TeacherListSub from "./teacherListSub.js";
 
-class ClassDash extends Component {
+class TeacherList extends Component {
 	render() {
 		return (
 			<div>
@@ -100,12 +99,10 @@ class ClassDash extends Component {
 					        </NavItem>
 
 				    </SideNav.Nav>
-				</SideNav>	
-				<h3 className="text-center" style={{ paddingTop: "10px" }}>Welcome to your Student Schedule!</h3>
-				{/*<ClassDashSub />*/}
-				<StudentsAgenda />
+				</SideNav>
+				<TeacherListSub />
 			</div>
 		);
 	}
 }
-export default ClassDash;
+export default TeacherList;

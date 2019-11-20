@@ -46,6 +46,7 @@ constructor (props) {
     })
   }
   render () {
+    console.log("this.props.match.path :", this.props.match.path)
     return (
       <div>
         <Navbar color="light" light expand="md">
@@ -121,7 +122,7 @@ constructor (props) {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <Link to="/class/dashboard"> Scheduling </Link>
+                    <Link to="/teachers/list"> Teacher's List </Link>
                   </DropdownItem>
                   <DropdownItem>
                     Option 2

@@ -20,11 +20,11 @@ constructor () {
 		zipCode: "",
 		city: "",
 		state: "",
-		password: "Jab-1994",
+		password: "",
 		passwordConfirm: "",
 		fullName: "",
 		gender: "",
-		email: "jeremyablong@icloud.com",
+		email: "",
 		code: "",
 		count: 0,
 		error: "",
@@ -155,7 +155,7 @@ constructor () {
 								this.setState({
 									email: e.target.value
 								})
-							}} type="text" value={this.state.email}  className="form-control" name="sign_in_email" placeholder="jeremyablong@icloud.com" />
+							}} type="text" value={this.state.email} className="form-control" name="sign_in_email" placeholder="Email" />
 							
 						</div>
 						<div className="input-group form-group">
@@ -166,13 +166,13 @@ constructor () {
 								this.setState({
 									password: e.target.value
 								})
-							}} type="password" value={this.state.password} className="form-control" name="sign_in_password" placeholder="Jab-1994" />
+							}} type="password" value={this.state.password} className="form-control" name="sign_in_password" placeholder="password" />
 						</div>
 						<div className="row align-items-center remember">
 							<input type="checkbox" />Remember Me
 						</div>
 						<div className="form-group">
-							<input style={{ width: "100%" }} type="submit" value="USE DEMO CREDIENTIALS" className="btn btn-danger float-right login_btn" />
+							<input type="submit" value="Login" className="btn float-right login_btn" />
 						</div>
 					</form>
 				</div>

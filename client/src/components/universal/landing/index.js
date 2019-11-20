@@ -77,6 +77,13 @@ constructor () {
       console.log(err);
     })
   }
+  componentDidMount () {
+    // axios.get("/gather/photos/students").then((res) => {
+    //   console.log("/gather/photos/students :", res.data);
+    // }).catch((err) => {
+    //   console.log(err);
+    // })
+  }
   renderModal = () => {
     return (
       <div style={{ backgroundColor: "black" }}> 

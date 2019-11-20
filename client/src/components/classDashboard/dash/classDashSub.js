@@ -94,6 +94,19 @@ constructor(props) {
     		console.log(err);
     	})
 	}
+	loadEntries = () => {
+		this.forceUpdate()
+		axios.post("/gather/agenda/home", {
+			email: this.props.email
+		}).then((res) => {
+    		this.setState({
+    			gatherData: res.data
+    		});
+    		const gather = res.data;
+    	}).catch((err) => {
+    		console.log(err);
+    	})
+	}
 	render () {
 		console.log("this.state :", this.state);
 	    return (
@@ -116,6 +129,11 @@ constructor(props) {
 				</div>
 				<div className="row">
 					<div className="col-md-12 col-xs-12">
+						<button onClick={this.loadEntries} className="btn btn-danger" style={{ width: "100%", marginBottom: "20px" }}>Load Updated Entries</button>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-md-12 col-xs-12">
 						<button onClick={this.submitStudentName} className="btn btn-danger" style={{ width: "100%", marginBottom: "10px" }}>Submit Student Information</button>
 					</div>
 				</div>
@@ -123,6 +141,7 @@ constructor(props) {
 			{this.state.gatherData.reverse().map((item, index) => {
 				console.log(item.studentList)
 				return ( 
+			<div style={{ marginLeft: "5px" }}>
 				<Timeline 
         		  key={index}
 			      groups={item.studentList ===  undefined ? [{ id: 1, title: "" }] : item.studentList}
@@ -130,6 +149,7 @@ constructor(props) {
 			      defaultTimeStart={moment().add(-12, 'hour')}
 			      defaultTimeEnd={moment().add(12, 'hour')}
 			    />
+			</div>
 			   	);
 			})}
 			</div>

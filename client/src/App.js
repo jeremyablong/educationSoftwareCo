@@ -7,8 +7,8 @@ import { connect } from "react-redux";
 import RegisterStudent from "./components/registerStudent/register/index.js";
 import MainStudentProfile from "./components/studentProfile/main.js";
 import ClassDash from "./components/classDashboard/dash/index.js";
-
-
+import TeacherList from "./components/teacherSocial/teacherList/index.js";
+import TeacherProfile from "./components/teacherSocial/socialLanding/teacherProfile.js";
 
 class App extends Component {
 constructor () {
@@ -24,7 +24,8 @@ constructor () {
           <Route exact path="/homepage" component={MainLanding} />
           {this.props.auth === true ? <Route exact path="/enrollment/new/student" component={RegisterStudent} /> : null}
           {this.props.auth === true ? <Route exact path="/view/student/profile" component={MainStudentProfile}/> : null}
-          {this.props.auth === true ? <Route exact path="/class/dashboard" component={ClassDash} /> : null}
+          {this.props.auth === true ? <Route exact path="/teachers/list" component={TeacherList} /> : null}
+          {this.props.auth === true ? <Route exact path="/view/teacher/profile" component={TeacherProfile} /> : null}
         </div>
       </BrowserRouter>
     );

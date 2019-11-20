@@ -69,7 +69,7 @@ constructor () {
 							</div>
 						</div>
 					 </div>
-					  <img style={{ borderRadius: "70px", maxHeight: "225px", maxWidth: "225px", marginBottom: "-140px" }} src={require(`../../../public/uploads/${passDown.originalname}`)} alt="apple"/>
+					  <img style={{ borderRadius: "70px", maxHeight: "225px", maxWidth: "225px", marginBottom: "-140px" }} src={passDown.location} alt="apple"/>
 			        </div>
 					  {/*<p class="lead text-white"><b>Email:</b> {passDown.email}</p>
 					  <p className="lead text-white">Ethnicity: {passDown.race}</p>

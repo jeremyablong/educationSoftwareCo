@@ -14,7 +14,9 @@ mongo.connect(config.get("mongoURI"),  { useNewUrlParser: true }, { useUnifiedTo
 
 		const collection = db.collection("faculties");
 
-		collection.findOneAndUpdate({ email: req.body.email }, { $push: { "studentList": { id: req.body.id , title: req.body.title }}}), function(err, result) { 
+		const { uuid, title, content, subTitle } = req.body;
+
+		collection.findOneAndUpdate({ email: req.body.email }, { $push: { "newsfeed": { uuid: uuid , title: title, content: content, subTitle: subTitle, comments: [] }}}), function(err, result) { 
 	        console.log(result);
 	        res.send(result);
 	    };  
@@ -22,4 +24,3 @@ mongo.connect(config.get("mongoURI"),  { useNewUrlParser: true }, { useUnifiedTo
 });
 
 module.exports = router;
-
