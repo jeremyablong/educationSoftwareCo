@@ -122,7 +122,7 @@ constructor (props) {
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    <Link to="/teachers/list"> Teacher's List </Link>
+                    <Link style={{ color: "black" }} to="/teachers/list"> Teacher's List </Link>
                   </DropdownItem>
                   <DropdownItem>
                     Option 2

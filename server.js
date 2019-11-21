@@ -35,6 +35,9 @@ app.use("/post/newsfeed", require("./routes/social/teacherProfile/social.js"));
 app.use("/gather/newsfeed/individual", require("./routes/social/teacherProfile/timelineGather.js"));
 app.use("/gather/photos/students", require("./routes/images/gatherImages.js"));
 app.use("/blog/post/image", require("./routes/multerBlogPost.js"));
+app.use("/blog/post/comment", require("./routes/social/comments/postResponse.js"));
+app.use("/get/blog/subcomments", require("./routes/social/comments/getComments.js"));
+
 
 app.get('/*', cors(), function(_, res) {
   res.sendFile(__dirname, './client/build/index.html'), function(err) {

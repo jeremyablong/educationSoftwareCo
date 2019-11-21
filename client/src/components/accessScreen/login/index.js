@@ -28,13 +28,21 @@ constructor () {
 		code: "",
 		count: 0,
 		error: "",
-		exists: false
+		exists: false,
+		message: "",
+		image: null
 	}
 }
 
 	onChange = (date) => {
 		this.setState({
 			date
+		})
+	}
+	onDrop = (e) => {
+		this.setState({
+			image: e.target.files[0],
+			message: "You have successfully selected your photo"
 		})
 	}
 	componentDidMount () {
@@ -66,7 +74,27 @@ constructor () {
 		})
 	}
 	renderSubmit = (e) => {
+
 		e.preventDefault();
+
+		const formData = new FormData();
+
+        formData.append('birthdate', this.state.date);
+        formData.append("streetAddress", this.state.streetAddress);
+        formData.append("zipCode", this.state.zipCode);
+        formData.append("city", this.state.city);
+        formData.append("state", this.state.state);
+        formData.append("passwordConfirm", this.state.passwordConfirm);
+        formData.append("fullName", this.state.fullName);
+        formData.append("gender", this.state.gender);
+        formData.append("email", this.state.email);
+        formData.append("image", this.state.image);
+
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
 
 		const { streetAddress, zipCode, city, state, password, passwordConfirm, fullName, gender, email } = this.state;
 		
@@ -76,17 +104,7 @@ constructor () {
 					return item.code.map((i, x) => {
 						if (i === this.state.code) {
 							if (streetAddress.length > 0 && zipCode.length > 0 && city.length > 0 && state.length > 0 && password.length > 0 && passwordConfirm.length > 0 && fullName.length > 0 && gender.length > 0 && email.length > 0) {
-									axios.post("/register", {
-										birthdate: this.state.date,
-										streetAddress: this.state.streetAddress,
-										zipCode: this.state.zipCode,
-										city: this.state.city,
-										state: this.state.state,
-										passwordConfirm: this.state.passwordConfirm,
-										fullName: this.state.fullName,
-										gender: this.state.gender,
-										email: this.state.email
-									}).then((res) => {
+									axios.post("/register", formData, config).then((res) => {
 										if (res.data.message === "User Already Exists.") {
 											if (this.state.exists === false) {
 												alert("User Already Exists.")
@@ -203,7 +221,7 @@ constructor () {
 							</div>
 						</div>
 						<div className="card-body">
-					<form onSubmit={this.renderSubmit}>
+					<form onSubmit={this.renderSubmit} method="POST" action="/" encType="multipart/form-data">
 						<div className="input-group form-group">
 							<input onChange={(e) => {
 								this.setState({
@@ -309,6 +327,18 @@ constructor () {
 						    <option value="Prefer To Not Answer">Prefer To Not Answer</option>
 						  </select>
 						</div>
+					<label htmlFor="birthdate" style={{ color: "white" }}>Choose Your Profile Picture</label>
+					<div style={{ marginBottom: "24px" }} className="input-group">
+					  <div className="input-group-prepend">
+					    <span style={{ width: "100%" }} className="input-group-text" id="inputGroupFileAddon01">Upload</span>
+					  </div>
+					  <div className="custom-file">
+					    <input onChange={this.onDrop} name="image" type="file" className="custom-file-input" id="inputGroupFile01"
+					      aria-describedby="inputGroupFileAddon01" />
+					    <label className="custom-file-label" htmlFor="inputGroupFile01">Choose file</label>
+					  </div>
+					  <h6 style={{ paddingTop: "10px" }} className="text-white text-left">{this.state.message}</h6>
+					</div>
 					<label htmlFor="birthdate" style={{ color: "white" }}>Choose Your Birthdate</label>
 					<div style={{ backgroundColor: "white", width: "45%"}}>
 					

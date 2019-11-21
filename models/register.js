@@ -67,6 +67,9 @@ const SignupSchema = new mongoose.Schema({
 	},
 	birthdate: {
 		type: Date
+	},
+	location: {
+		type: String
 	}
 });
 

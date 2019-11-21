@@ -72,6 +72,8 @@ constructor (props) {
 	    	content: "",
 	    	image: null
 	    });
+
+	    alert("Post Submitted Successfully!")
     }
     renderConditional = () => {
     	for (let i in this.state.gatherTimelinePosts) {
@@ -117,7 +119,7 @@ constructor (props) {
 							  <div class="input-group-prepend">
 							    <span style={{ width: "100%" }} class="input-group-text" id="inputGroup-sizing-sm">Title</span>
 							  </div>
-							  <input placeholder="Enter your title here..." onChange={(e) => {
+							  <input value={this.state.title} placeholder="Enter your title here..." onChange={(e) => {
 							  	this.setState({
 									title: e.target.value
 							  	})
@@ -127,7 +129,7 @@ constructor (props) {
 							  <div class="input-group-prepend">
 							    <span style={{ width: "100%" }} class="input-group-text" id="inputGroup-sizing-sm">Sub-Title</span>
 							  </div>
-							  <input placeholder="Enter your sub-title here..." onChange={(e) => {
+							  <input value={this.state.subTitle} placeholder="Enter your sub-title here..." onChange={(e) => {
 							  	this.setState({
 									subTitle: e.target.value
 							  	})
@@ -136,7 +138,7 @@ constructor (props) {
 						
                                 <div class="form-group">
                                     <label class="sr-only" for="message">post</label>
-                                    <textarea  onChange={(e) => {
+                                    <textarea value={this.state.content} onChange={(e) => {
 									  	this.setState({
 											content: e.target.value
 									  	})
@@ -191,7 +193,7 @@ constructor (props) {
 				return item.newsfeed.map((i, idx) => {
 					console.log("newsfeed i :", i)
 					return ( 
-						<div>
+						<div key={index}>
 						
 						</div>
 					);
