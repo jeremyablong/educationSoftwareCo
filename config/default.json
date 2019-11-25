@@ -1,3 +1,0 @@
-{
-	"mongoURI": "mongodb://jeremyablong:Jer$8246355@cluster0-shard-00-00-sxe3t.mongodb.net:27017,cluster0-shard-00-01-sxe3t.mongodb.net:27017,cluster0-shard-00-02-sxe3t.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
-}
